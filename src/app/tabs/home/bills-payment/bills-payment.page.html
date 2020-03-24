@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-grid fixed>
+    <ion-row>
+      <!-- Illustartor
+      <ion-col size="12" size-md="8" offset-md="2">
+        <div class="illustrator">
+          <img src="/assets/airtime.svg" alt="">
+        </div>
+      </ion-col> -->
+      <ion-col size="12" size-md="8" offset-md="2">
+        <ion-item  class="ion-margin-vertical custom-item" *ngFor="let service of billServices" 
+        (click)="gotoService(service.url)" lines="none" color="primary">
+          <ion-label><p>{{service.name}}</p></ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

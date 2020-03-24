@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/bills-payment"></ion-back-button>
+    </ion-buttons>
+    <ion-title><ion-label class="ion-text-wrap">{{serviceName}}</ion-label></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-grid fixed>
+    <ion-row>
+      <!-- Illustartor -->
+      <ion-col size="12" size-md="8" offset-md="2">
+        <div class="illustrator">
+          <img src="/assets/airtime.svg" alt="">
+        </div>
+      </ion-col>
+      <ion-col size="12" size-md="8" offset-md="2">
+        <form [formGroup]="payBillsForm" (ngSubmit)="completeBillPayment()">
+
+          <!-- Choose Package -->
+          <ion-item *ngIf="inputFormObject?.package" class="ion-margin-vertical">
+            <ion-label position="floating" 
+            *ngIf="type !== billServiceEnum.GOTV && type !== billServiceEnum.STARTIMES">Choose Package</ion-label>
+            <ion-label position="floating" 
+            *ngIf="type === billServiceEnum.GOTV || type === billServiceEnum.STARTIMES">Choose Recharge Plan</ion-label>
+            <ion-select required formControlName="package" >
+              <ion-select-option *ngFor="let option of dummyoptions">{{option}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Choose Plan -->
+          <ion-item *ngIf="inputFormObject?.plan" class="ion-margin-vertical">
+            <ion-label position="floating">Choose plan</ion-label>
+            <ion-select required formControlName="plan" >
+              <ion-select-option *ngFor="let option of dummyoptions">{{option}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Customer number -->
+          <ion-item *ngIf="inputFormObject?.customerNo" class="ion-margin-vertical">
+            <ion-label position="floating" 
+            *ngIf="type === billServiceEnum.DSTV || type === billServiceEnum.GOTV || type === billServiceEnum.STARTIMES">
+            Smart Card Number
+            </ion-label>
+            <ion-label position="floating" 
+            *ngIf="type === billServiceEnum.SMILEDATA || type === billServiceEnum.SMILERECHARGE">
+              Account Number
+            </ion-label>
+            <ion-label position="floating" class="ion-text-wrap"
+            *ngIf="type === billServiceEnum.ELECTRICITY ">
+              Account Number <small>(Your customer reference or meter number)</small>
+            </ion-label>
+            <ion-input required formControlName="customerNo" type="tel"
+            autocomplete="off" autocorrect="off" clearOnEdit="false" inputmode="tel"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Amount -->
+          <ion-item *ngIf="inputFormObject?.amount" class="ion-margin-vertical">
+            <ion-label position="floating">Amount</ion-label>
+              <ion-input required formControlName="amount" type="tel"
+              autocomplete="off" autocorrect="off" clearOnEdit="false" inputmode="tel"
+              ></ion-input>
+          </ion-item>
+
+          <!-- Select Quantity -->
+          <ion-item *ngIf="inputFormObject?.quantity" class="ion-margin-vertical">
+            <ion-label position="floating">Quantity</ion-label>
+            <ion-select required formControlName="quantity" >
+              <ion-select-option *ngFor="let option of dummyoptions">{{option}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Submit button -->
+          <ion-button color="primary" type="submit" [disabled]="payBillsForm.invalid" expand="full">
+            <ion-spinner name="dots" *ngIf="isloading"></ion-spinner>
+            <span *ngIf="!isloading">Proceed</span>
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

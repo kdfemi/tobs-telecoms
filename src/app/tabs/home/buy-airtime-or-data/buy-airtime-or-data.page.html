@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Buy {{type | titlecase}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+<ion-grid fixed>
+  <ion-row>
+    <!-- Illustartor -->
+    <ion-col size="12" size-md="8" offset-md="2">
+      <div class="illustrator">
+        <img src="/assets/airtime.svg" alt="">
+      </div>
+    </ion-col>
+
+    <!-- Form -->
+    <ion-col size="12" size-md="8" offset-md="2" class="ion-margin-top">
+      <form [formGroup]="buyAirtimeForm" (ngSubmit)="buyAirtime()">
+
+        <!-- Subscription option -->
+        <ion-item *ngIf="type === 'data'" class="ion-margin-vertical">
+          <ion-label position="floating">Choose Type</ion-label>
+          <ion-select required formControlName="subscriptionType" >
+            <ion-select-option *ngFor="let dataType of dataTypes">{{dataType}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Network dropdown -->
+        <ion-item  class="ion-margin-vertical">
+          <ion-label position="floating">Select Network</ion-label>
+          <ion-select required formControlName="network" >
+            <ion-select-option *ngFor="let network of networks">{{network}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- phone number input -->
+        <ion-item  class="ion-margin-vertical">
+          <ion-label position="floating">Phone Number</ion-label>
+          <ion-input required formControlName="phoneNumber" type="tel"
+            autocomplete="off" autocorrect="off" clearOnEdit="false" inputmode="tel"
+          ></ion-input>
+        </ion-item>
+
+        <!-- Amount input -->
+        <ion-item *ngIf="type === 'airtime'"  class="ion-margin-vertical">
+          <ion-label position="floating">Amount</ion-label>
+          <ion-input required formControlName="amount" type="number"
+          inputmode="numeric" autocomplete="off" autocorrect="off" clearOnEdit="false"
+          ></ion-input>
+        </ion-item>
+
+        <!--  Data Rate-->
+        <ion-item *ngIf="type === 'data'"  class="ion-margin-vertical">
+          <ion-label position="floating">Data Rate</ion-label>
+          <ion-select required formControlName="dataRate" >
+            <ion-select-option *ngFor="let dataRate of dataRates">{{dataRate}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Submit button -->
+        <ion-button color="primary" type="submit" [disabled]="buyAirtimeForm.invalid" expand="full">
+          <ion-spinner name="dots" *ngIf="isloading"></ion-spinner>
+          <span *ngIf="!isloading">Buy {{type|titlecase}}</span>
+        </ion-button>
+        
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

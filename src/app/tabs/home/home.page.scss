@@ -1,0 +1,42 @@
+ion-content ion-toolbar {
+  --background: translucent;
+}
+.user-detail-modal {
+
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 7px;
+  background-color: var(--ion-color-primary-tint);
+  color: white;
+  p {
+    margin-bottom: 0px;
+  }
+  .user-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    border: 1px solid white;
+    margin-left: 61%;
+  }
+}
+.wallet-modal {
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 7px;
+  background-color: var(--ion-color-primary-tint);
+  color: white;
+  ion-button {
+    font-size: 10px;
+  }
+}
+.menu-card{
+  border: 1px solid rgba(0,0,0,0.2);
+  --ion-margin: 10px;
+  border-radius: 8px;
+  color: white;
+  background: rgba(var(--ion-color-primary-rgb), 0.8);
+  ion-icon {
+    font-size: 32px;
+  }
+  p {
+    font-size: 15px;
+    margin: 0;
+  }
+}
